@@ -16,6 +16,7 @@
 		D07178131854161600BE40A3 /* libIKMatrix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07177FB1854161500BE40A3 /* libIKMatrix.a */; };
 		D07178191854161600BE40A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D07178171854161600BE40A3 /* InfoPlist.strings */; };
 		D071781B1854161600BE40A3 /* IKMatrixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D071781A1854161600BE40A3 /* IKMatrixTests.m */; };
+		D07178261854163600BE40A3 /* IKVector.m in Sources */ = {isa = PBXBuildFile; fileRef = D07178251854163600BE40A3 /* IKVector.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		D07178161854161600BE40A3 /* IKMatrixTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IKMatrixTests-Info.plist"; sourceTree = "<group>"; };
 		D07178181854161600BE40A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D071781A1854161600BE40A3 /* IKMatrixTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IKMatrixTests.m; sourceTree = "<group>"; };
+		D07178241854163600BE40A3 /* IKVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKVector.h; sourceTree = "<group>"; };
+		D07178251854163600BE40A3 /* IKVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IKVector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 		D07178001854161600BE40A3 /* IKMatrix */ = {
 			isa = PBXGroup;
 			children = (
+				D07178241854163600BE40A3 /* IKVector.h */,
+				D07178251854163600BE40A3 /* IKVector.m */,
 				D07178031854161600BE40A3 /* IKMatrix.h */,
 				D07178051854161600BE40A3 /* IKMatrix.m */,
 				D07178011854161600BE40A3 /* Supporting Files */,
@@ -224,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D07178261854163600BE40A3 /* IKVector.m in Sources */,
 				D07178061854161600BE40A3 /* IKMatrix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
