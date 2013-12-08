@@ -10,7 +10,7 @@
 
 @interface IKVector : NSObject
 {
-    NSDictionary *f;
+    NSMutableDictionary *f;
     
     NSMutableSet *domain;
 }
@@ -33,9 +33,11 @@
 //calculates the dot product between two vectors
 - (NSNumber *)dotProductWith:(IKVector *)anotherVector;
 
+//used to compare vec domains
++ (BOOL)numSet:(NSSet *)a isEqualToSet:(NSSet *)b;
 
 @property (strong) NSMutableSet *domain;
-@property (strong) NSDictionary *f;
+@property (strong) NSMutableDictionary *f;
 
 
 @end

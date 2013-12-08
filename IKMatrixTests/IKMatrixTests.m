@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-
+#import "IKVector.h"
 @interface IKMatrixTests : XCTestCase
 
 @end
@@ -26,9 +26,40 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testDomain
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
+    
+    IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
+    
+    NSSet *test = [NSSet setWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:1],nil];
+    
+    XCTAssert([a.domain isEqualToSet:b.domain]  ,@"Testing domain");
 }
-
+- (void)testAccessor
+{
+    IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
+    
+    IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
+    
+    XCTAssert(([[a getValueAtIndex:[NSNumber numberWithInt:0]] floatValue] == 1.0),@"Accessor test");
+    
+    XCTAssert(([[a getValueAtIndex:[NSNumber numberWithInt:1]] floatValue] == 2.0),@"Accessor test");
+    
+    XCTAssert(([[a getValueAtIndex:[NSNumber numberWithInt:2]] floatValue] == 3.0),@"Accessor test");
+    
+    XCTAssert(([[b getValueAtIndex:[NSNumber numberWithInt:2]] floatValue] == 1.0),@"Accessor test");
+    
+    XCTAssert(([[b getValueAtIndex:[NSNumber numberWithInt:0]] floatValue] == 1.0),@"Accessor test");
+}
+- (void)testDotProduct
+{
+    IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
+    
+    IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
+    
+    
+    XCTAssertEqualObjects([a dotProductWith:b],[NSNumber numberWithFloat:6.0],@"Dot product error");
+    
+}
 @end

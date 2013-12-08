@@ -9,7 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface IKMatrix : NSObject
-
+{
+    
+    
+    
+    
+}
 
 
 
