@@ -26,17 +26,18 @@
     [super tearDown];
 }
 
-- (void)testDomain
+- (void)testVecDomain
 {
     IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
     
     IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
-    
-    NSSet *test = [NSSet setWithObjects:[NSNumber numberWithInt:0],[NSNumber numberWithInt:1],nil];
+    IKVector *c = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
+
     
     XCTAssert([a.domain isEqualToSet:b.domain]  ,@"Testing domain");
+    XCTAssertFalse([a.domain isEqual:c.domain],@"Testing false domain");
 }
-- (void)testAccessor
+- (void)testVecAccessor
 {
     IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
     
@@ -52,7 +53,7 @@
     
     XCTAssert(([[b getValueAtIndex:[NSNumber numberWithInt:0]] floatValue] == 1.0),@"Accessor test");
 }
-- (void)testDotProduct
+- (void)testVecDotProduct
 {
     IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
     
@@ -62,4 +63,17 @@
     XCTAssertEqualObjects([a dotProductWith:b],[NSNumber numberWithFloat:6.0],@"Dot product error");
     
 }
+
+- (void)testVecNorm
+{
+    
+    IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
+    
+    IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
+    
+    XCTAssert([[a norm] isEqualToNumber:[NSNumber numberWithFloat:sqrt(14)]],@"Testing norm");
+    XCTAssert([[b norm] isEqualToNumber:[NSNumber numberWithFloat:sqrt(3)]],@"Testing norm 2");
+    
+}
+
 @end
