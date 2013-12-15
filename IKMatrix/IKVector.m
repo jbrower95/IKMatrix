@@ -41,6 +41,16 @@
     return self;
 }
 
+- (id)initWithDomain:(NSMutableSet *)_domain{
+    
+    self = [super init];
+    
+    self.domain = [[NSMutableSet alloc] initWithSet:_domain];
+    self.f = [[NSMutableDictionary alloc] init];
+    
+    return self;
+}
+
 //initializes an empty vector
 - (id)init
 {
@@ -52,6 +62,19 @@
     return self;
 }
 
+- (id)initWithVector:(IKVector *)vec
+{
+    self = [super init];
+    self.domain = [[NSMutableSet alloc] initWithSet:vec.domain];
+    self.f = [[NSMutableDictionary alloc] initWithDictionary:vec.f];
+    return self;
+}
+
+- (id)copy
+{
+    IKVector *v = [[IKVector alloc] initWithVector:self];
+    return v;
+}
 
 //returns an entry of a vector
 - (id)getValueAtIndex:(id)key
@@ -183,6 +206,114 @@
     return YES;
 }
 
+- (void)multiplyByScalar:(float)scalar
+{
+    for (id k in self.domain){
+        
+        float c = [[self getValueAtIndex:k] floatValue] * scalar;
+    
+        [self setNumber:[NSNumber numberWithFloat:c] forKey:k];
+    }
+}
+
+//given an input vector v, returns a vector equal to self + v
+- (IKVector *)add:(IKVector *)anotherVector{
+    
+    if (![self.domain isEqualToSet:anotherVector.domain]){
+        @throw [NSException exceptionWithName:@"IKVecAdditionError" reason:@"Tried to add two vecs with different domains" userInfo:nil];
+    }
+    
+    IKVector *output = [[IKVector alloc] initWithDomain:anotherVector.domain];
+    
+    for (id key in anotherVector.domain){
+        
+        float a = [[self getValueAtIndex:key] floatValue];
+        float b = [[anotherVector getValueAtIndex:key] floatValue];
+        
+        if ( pow((a + b),2) < pow(10,-34)){
+            continue;
+        }
+        [output setValue:[NSNumber numberWithFloat:(a+b)] forKey:key];
+        
+        
+    }
+    
+    return output;
+    
+}
+
+//given an input vector v, returns a vector equal to self - v
+- (IKVector *)subtract:(IKVector *)anotherVector{
+    
+    IKVector *copy = [[IKVector alloc] initWithVector:anotherVector];
+    [copy multiplyByScalar:-1.];
+    
+    return [self add:copy];
+}
+
+
+
+
+// returns the projection of the vector object parallel to an input vector
+- (IKVector *)projectParallelTo:(IKVector *)input
+{
+    if (![self.domain isEqualToSet:input.domain])
+    {
+        @throw [NSException exceptionWithName:@"IKVecDomainException" reason:@"Error: tried to project onto vector of different domain" userInfo:nil];
+    }
+    
+    NSNumber *product = [input dotProductWith:input];
+    if ([product floatValue] <= pow(10,-34))
+    {
+        //if it's close enough to zero, consider it a zero vector
+        return [[IKVector alloc] initWithDomain:input.domain];
+    }
+    
+    float sigma = ([[self dotProductWith:input] floatValue] / [[input dotProductWith:input] floatValue]);
+    
+    IKVector *projection = [[IKVector alloc] initWithVector:input];
+    [projection multiplyByScalar:sigma];
+    return projection;
+    
+}
+
+// returns the a new vector, the perpindicular projection of self to an input vector
+- (IKVector *)projectOrthogonalTo:(IKVector *)input
+{
+    if (![self.domain isEqualToSet:input.domain])
+    {
+        @throw [NSException exceptionWithName:@"IKVecDomainException" reason:@"Error: tried to project onto vector of different domain" userInfo:nil];
+    }
+    
+    IKVector *output = [self copy];
+    
+    return [output subtract:[self projectParallelTo:input]];
+    
+}
+
+// returns the perpindicular projection of the vector to several mutually orthogonal vectors
+- (IKVector *)projectOrthogonalToList:(NSArray *)otherVecs
+{
+    
+    return nil;
+    
+    
+    
+    
+    
+}
+
+// returns the parallel projection of the vector to several vectors
+- (IKVector *)projectParallelToList:(NSArray *)otherVecs
+{
+    
+    
+    
+    return nil;
+    
+    
+    
+}
 
 
 

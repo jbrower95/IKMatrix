@@ -64,6 +64,21 @@
     
 }
 
+- (void)testAddition
+{
+    
+    IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
+    
+    IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
+    
+    IKVector *c = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],[NSNumber numberWithFloat:4.0],nil]];
+    
+    
+    XCTAssertEqualObjects([a add:b],c,@"Addition error");
+    
+    
+}
+
 - (void)testVecNorm
 {
     
