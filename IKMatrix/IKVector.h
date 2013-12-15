@@ -15,6 +15,8 @@
     NSMutableSet *domain;
 }
 
+/*      Main Vector Functions       */
+
 //typically an NSArray of NSNumbers
 - (id)initWithList:(NSArray *)array;
 
@@ -35,6 +37,29 @@
 
 //used to compare vec domains
 + (BOOL)numSet:(NSSet *)a isEqualToSet:(NSSet *)b;
+
+
+
+
+
+/*      Vector Convenience Functions        */
+
+// returns the projection of the vector object parallel to an input vector
+- (IKVector *)projectParallelTo:(IKVector *)input;
+
+// returns the perpindicular projection of the vector to an input vector
+- (IKVector *)projectOrthogonalTo:(IKVector *)input;
+
+// returns the perpindicular projection of the vector to several vectors
+- (IKVector *)projectOrthogonalToList:(NSArray *)otherVecs;
+
+// returns the parallel projection of the vector to several vectors
+- (IKVector *)projectPerpindicularToList:(NSArray *)otherVecs;
+
+
+
+
+
 
 @property (strong) NSMutableSet *domain;
 @property (strong) NSMutableDictionary *f;
