@@ -72,10 +72,18 @@
     IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
     
     IKVector *c = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],[NSNumber numberWithFloat:4.0],nil]];
+
+    IKVector *d = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0],[NSNumber numberWithFloat:4.0],[NSNumber numberWithFloat:5.0],nil]];
     
+    //simple addition tests
+    XCTAssert([[a add:b] isEqualToVector:c],@"Addition error");
+    XCTAssert([[b add:c] isEqualToVector:d],@"Addition error");
     
-    XCTAssertEqualObjects([a add:b],c,@"Addition error");
-    
+    //commutivity tests
+    XCTAssert([[a add:b] isEqualToVector:[b add:a]],@"Addition error");
+    XCTAssert([[b add:c] isEqualToVector:[c add:b]],@"Addition error");
+    XCTAssert([[a add:c] isEqualToVector:[c add:a]],@"Addition error");
+    XCTAssert([[b add:d] isEqualToVector:[d add:b]],@"Addition error");
     
 }
 

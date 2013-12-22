@@ -233,7 +233,7 @@
         if ( pow((a + b),2) < pow(10,-34)){
             continue;
         }
-        [output setValue:[NSNumber numberWithFloat:(a+b)] forKey:key];
+        [output setNumber:[NSNumber numberWithFloat:(a+b)] forKey:key];
         
         
     }
