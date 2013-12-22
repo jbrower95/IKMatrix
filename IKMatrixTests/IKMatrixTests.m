@@ -59,10 +59,41 @@
     
     IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
     
+    IKVector *c = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:1.0],nil]];
     
+    
+    //dot product test
     XCTAssertEqualObjects([a dotProductWith:b],[NSNumber numberWithFloat:6.0],@"Dot product error");
+    //error test
+    XCTAssertThrows([a dotProductWith:c], @"Error test: failure");
     
 }
+
+
+- (void)testScalarVecMultiply
+{
+    IKVector *a = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:1.0],[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],nil]];
+    
+    IKVector *b = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:4.0],[NSNumber numberWithFloat:6.0],nil]];
+    
+    IKVector *c = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:-2.0],[NSNumber numberWithFloat:-4.0],[NSNumber numberWithFloat:-6.0],nil]];
+    
+    IKVector *d = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0],[NSNumber numberWithFloat:4.0],[NSNumber numberWithFloat:5.0],nil]];
+    
+    IKVector *e = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0],[NSNumber numberWithFloat:4.0],[NSNumber numberWithFloat:5.0],nil]];
+    
+    [a multiplyByScalar:2.0f];
+    XCTAssert([a isEqualToVector:b],@"Scalar-vec mult error");
+    
+    
+    [b multiplyByScalar:-1.0f];
+    XCTAssert([b isEqualToVector:c],@"Scalar-vec mult error");
+    
+    [d multiplyByScalar:1.0f];
+    XCTAssert([d isEqualToVector:e],@"Identity error");
+    
+}
+
 
 - (void)testAddition
 {
@@ -74,6 +105,9 @@
     IKVector *c = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:2.0],[NSNumber numberWithFloat:3.0],[NSNumber numberWithFloat:4.0],nil]];
 
     IKVector *d = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0],[NSNumber numberWithFloat:4.0],[NSNumber numberWithFloat:5.0],nil]];
+
+    IKVector *e = [[IKVector alloc] initWithList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0],[NSNumber numberWithFloat:4.0],[NSNumber numberWithFloat:5.0],[NSNumber numberWithFloat:1.0],nil]];
+
     
     //simple addition tests
     XCTAssert([[a add:b] isEqualToVector:c],@"Addition error");
@@ -84,6 +118,11 @@
     XCTAssert([[b add:c] isEqualToVector:[c add:b]],@"Addition error");
     XCTAssert([[a add:c] isEqualToVector:[c add:a]],@"Addition error");
     XCTAssert([[b add:d] isEqualToVector:[d add:b]],@"Addition error");
+    
+    //error tests
+    XCTAssertThrows([a add:e], @"Vec domain error: failure");
+    XCTAssertThrows([b add:e], @"Vec domain error: failure");
+    XCTAssertThrows([c add:e], @"Vec domain error: failure");
     
 }
 
